@@ -1,13 +1,185 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>BlushRoom</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlushRoom Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fff1f8, #ffe4ec);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 3rem 1rem 1rem;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #d26fa9;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .cta {
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cta-box {
+      background: #fff9fc;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(220, 145, 180, 0.3);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      color: #c04f93;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+    }
+
+    .cta-box p {
+      color: #666;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .start-btn {
+      margin-top: 1rem;
+      background: #f6a5c0;
+      border: none;
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 4px 10px rgba(255, 175, 204, 0.4);
+    }
+
+    .start-btn:hover {
+      background: #ec7fa8;
+    }
+
+    .preview-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1rem 2rem;
+    }
+
+    .preview {
+      background: #ffe4ec;
+      border-radius: 15px;
+      padding: 1rem;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(228, 130, 172, 0.2);
+    }
+
+    .preview h4 {
+      margin-bottom: 0.5rem;
+      color: #b64583;
+      font-size: 1.1rem;
+    }
+
+    /* Heart Rain */
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/JZz2mQp.png') no-repeat center center / contain;
+      position: absolute;
+      top: -40px;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome to BlushRoom 🌸</h1>
-  <a href="journal.html">Journal Box</a>
+  <header>Welcome to BlushRoom Journal</header>
+  <div class="intro">
+    A cozy corner for your emotions, reflections, and healing. Start your journaling streak, track your mood, or just let your thoughts out — in your way. 🌸
+  </div>
+
+  <div class="cta">
+    <div class="cta-box">
+      <h2>Start Journaling</h2>
+      <p>Write your heart out in your safe space. It’s private, soft, and all yours.</p>
+      <a href="journal.html">
+        <button class="start-btn">Go to Journal Box</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="preview-boxes">
+    <div class="preview">
+      <h4>🧠 Mood Tracker</h4>
+      <p>Log how you feel and see patterns in your emotions.</p>
+    </div>
+    <div class="preview">
+      <h4>🔥 Streak Counter</h4>
+      <p>Celebrate your consistency and healing journey.</p>
+    </div>
+    <div class="preview">
+      <h4>🧸 AI Soft Friend</h4>
+      <p>Coming soon: a friendly listener just for you.</p>
+    </div>
+  </div>
+
+  <script>
+    // Generate multiple falling hearts
+    const heartRain = () => {
+      const body = document.body;
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 10 + "s";
+        body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 10000);
+      }
+    };
+
+    setInterval(heartRain, 2000);
+  </script>
 </body>
+
 </html>
