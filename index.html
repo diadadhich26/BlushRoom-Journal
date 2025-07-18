@@ -1,137 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BlushRoom Journal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Quicksand', sans-serif;
-      background-color: #fff0f5;
-      color: #444;
-      background-image: radial-gradient(rgba(255, 192, 203, 0.08) 1px, transparent 1px),
-                        radial-gradient(rgba(255, 182, 193, 0.08) 1px, transparent 1px);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      overflow-x: hidden;
+      background: linear-gradient(to bottom, #fff6f9, #ffeaf1);
+      color: #4a4a4a;
     }
 
     .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 80px 20px;
+      min-height: 100vh;
+      padding: 2rem;
+      background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+      background-size: contain;
+      background-repeat: repeat;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       font-size: 3rem;
-      color: #d06b90;
-      margin-bottom: 10px;
+      color: #d94c85;
+      margin-bottom: 1rem;
     }
 
-    p.description {
+    p {
       font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto 40px auto;
-      color: #5c5c5c;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: #555;
     }
 
-    .box {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 40px;
-      border-radius: 30px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-      display: inline-block;
-      margin-top: 40px;
-      max-width: 750px;
-    }
-
-    .cta {
-      font-style: italic;
-      color: #aa5a74;
-      margin-top: 20px;
-    }
-
-    .btn {
-      background-color: #f7accf;
-      color: #fff;
-      padding: 14px 28px;
+    .button {
+      background-color: #f4acc4;
+      color: white;
+      padding: 1rem 2rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s ease;
-      font-weight: 500;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .btn:hover {
-      background-color: #e393b8;
+    .button:hover {
+      background-color: #e391b2;
     }
 
-    .candles {
-      position: fixed;
+    .floating-decor {
+      position: absolute;
       top: 0;
       bottom: 0;
-      width: 60px;
-      background-image: url('https://cdn-icons-png.flaticon.com/128/6074/6074915.png');
-      background-repeat: repeat-y;
-      background-size: 30px;
+      width: 100px;
+      background: url('https://cdn-icons-png.flaticon.com/512/4843/4843371.png') center top / 50px no-repeat,
+                  url('https://cdn-icons-png.flaticon.com/512/4843/4843371.png') center bottom / 50px no-repeat;
       opacity: 0.15;
-      z-index: 1;
+      animation: float 6s ease-in-out infinite;
     }
 
-    .candles.left {
+    .left-decor {
       left: 0;
     }
 
-    .candles.right {
+    .right-decor {
       right: 0;
-      transform: scaleX(-1);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+      100% { transform: translateY(0); }
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 3rem;
       font-size: 0.9rem;
-      color: #888;
-      position: relative;
-      padding-bottom: 40px;
+      color: #777;
     }
 
     .footer-icons {
-      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
     }
 
     .footer-icons img {
-      width: 32px;
-      margin: 0 8px;
-      opacity: 0.7;
+      height: 24px;
+      opacity: 0.6;
     }
   </style>
 </head>
+
 <body>
-  <div class="candles left"></div>
-  <div class="candles right"></div>
+  <div class="floating-decor left-decor"></div>
+  <div class="floating-decor right-decor"></div>
 
   <div class="container">
-    <div class="box">
-      <h1>BlushRoom Journal</h1>
-      <p class="description">
-        Welcome to your cozy online journal — a gentle space to feel, reflect, and heal. Write privately, track your moods, and embrace your softest self here.
-      </p>
-      <a href="journal.html"><button class="btn">📓 Open Journal Box</button></a>
-      <p class="cta">You deserve a moment to breathe and just be. Start now.</p>
-    </div>
+    <h1>BlushRoom Journal</h1>
+    <p>Welcome to your cozy online journal — a gentle space to feel, reflect, and heal. Write privately, track your moods, and embrace your softest self here.</p>
+    <a href="journal.html">
+      <button class="button">📔 Open Journal Box</button>
+    </a>
+    <p style="font-style: italic; margin-top: 1.5rem; color: #888">You deserve a moment to breathe and just be. Start now.</p>
+
     <footer>
-      © 2025 BlushRoom by Dia Dadhich 🌸
+      © 2025 BlushRoom by Dia Dadhich
       <div class="footer-icons">
-        <img src="https://cdn-icons-png.flaticon.com/128/3143/3143643.png" alt="tea cup">
-        <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="moon">
-        <img src="https://cdn-icons-png.flaticon.com/128/6025/6025234.png" alt="sparkle">
+        <img src="https://cdn-icons-png.flaticon.com/512/4359/4359961.png" alt="Tea Cup">
+        <img src="https://cdn-icons-png.flaticon.com/512/272/272527.png" alt="Moon">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Sparkle">
       </div>
     </footer>
   </div>
 </body>
+
 </html>
