@@ -1,185 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BlushRoom Journal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Shadows+Into+Light&display=swap" rel="stylesheet">
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #fff1f8, #ffe4ec);
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fffafc;
+      color: #333;
     }
 
     header {
-      padding: 3rem 1rem 1rem;
-      text-align: center;
-      font-family: 'Dancing Script', cursive;
-      font-size: 3rem;
-      color: #d26fa9;
-    }
-
-    .intro {
-      text-align: center;
+      background-color: #ffe4ec;
       padding: 1rem 2rem;
-      font-size: 1.2rem;
-      color: #444;
+      text-align: center;
+      border-bottom: 2px dashed #f8cddf;
     }
 
-    .cta {
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
+    header h1 {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 2.5rem;
+      margin: 0;
+      color: #c05d87;
     }
 
-    .cta-box {
-      background: #fff9fc;
-      border-radius: 20px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(220, 145, 180, 0.3);
-      max-width: 600px;
-      width: 90%;
+    main {
+      padding: 3rem 2rem;
       text-align: center;
     }
 
-    .cta-box h2 {
-      color: #c04f93;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
-    }
-
-    .cta-box p {
-      color: #666;
-      margin-top: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .start-btn {
-      margin-top: 1rem;
-      background: #f6a5c0;
-      border: none;
-      color: white;
-      padding: 0.75rem 2rem;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-      box-shadow: 0 4px 10px rgba(255, 175, 204, 0.4);
-    }
-
-    .start-btn:hover {
-      background: #ec7fa8;
-    }
-
-    .preview-boxes {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      padding: 1rem 2rem;
-    }
-
-    .preview {
-      background: #ffe4ec;
-      border-radius: 15px;
-      padding: 1rem;
-      width: 180px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(228, 130, 172, 0.2);
-    }
-
-    .preview h4 {
-      margin-bottom: 0.5rem;
-      color: #b64583;
+    .description {
       font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+      color: #555;
     }
 
-    /* Heart Rain */
-    .heart {
-      width: 20px;
-      height: 20px;
-      background: url('https://i.imgur.com/JZz2mQp.png') no-repeat center center / contain;
-      position: absolute;
-      top: -40px;
-      animation: fall 8s linear infinite;
+    .journal-btn {
+      padding: 0.75rem 1.5rem;
+      background-color: #f4a8c2;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    @keyframes fall {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    .journal-btn:hover {
+      background-color: #e08dab;
+    }
 
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .soft-cta {
+      margin-top: 3rem;
+      font-style: italic;
+      color: #aa5a7a;
     }
   </style>
 </head>
-
 <body>
-  <header>Welcome to BlushRoom Journal</header>
-  <div class="intro">
-    A cozy corner for your emotions, reflections, and healing. Start your journaling streak, track your mood, or just let your thoughts out — in your way. 🌸
-  </div>
 
-  <div class="cta">
-    <div class="cta-box">
-      <h2>Start Journaling</h2>
-      <p>Write your heart out in your safe space. It’s private, soft, and all yours.</p>
-      <a href="journal.html">
-        <button class="start-btn">Go to Journal Box</button>
-      </a>
-    </div>
-  </div>
+  <header>
+    <h1>BlushRoom Journal</h1>
+  </header>
 
-  <div class="preview-boxes">
-    <div class="preview">
-      <h4>🧠 Mood Tracker</h4>
-      <p>Log how you feel and see patterns in your emotions.</p>
-    </div>
-    <div class="preview">
-      <h4>🔥 Streak Counter</h4>
-      <p>Celebrate your consistency and healing journey.</p>
-    </div>
-    <div class="preview">
-      <h4>🧸 AI Soft Friend</h4>
-      <p>Coming soon: a friendly listener just for you.</p>
-    </div>
-  </div>
+  <main>
+    <p class="description">
+      Welcome to your cozy online journal — a gentle space to feel, reflect, and heal.
+      Write privately, track your moods, and embrace your softest self here.
+    </p>
 
-  <script>
-    // Generate multiple falling hearts
-    const heartRain = () => {
-      const body = document.body;
-      for (let i = 0; i < 25; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDelay = Math.random() * 10 + "s";
-        body.appendChild(heart);
+    <a href="journal.html" class="journal-btn">📔 Open Journal Box</a>
 
-        setTimeout(() => {
-          heart.remove();
-        }, 10000);
-      }
-    };
+    <p class="soft-cta">You deserve a moment to breathe and just be. Start now.</p>
+  </main>
 
-    setInterval(heartRain, 2000);
-  </script>
+  <footer>
+    &copy; 2025 BlushRoom by Dia Dadhich 🌸
+  </footer>
+
 </body>
-
 </html>
