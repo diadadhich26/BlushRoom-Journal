@@ -156,6 +156,162 @@
   </div>
 
   <div class="ai-bubble" onclick="talkAI()">💬 Talk to Blushy</div>
+<!-- 🌸 BlushRoom ChatBot: Add to bottom of journal.html -->
+
+<style>
+  /* Chat Bubble */
+  #chat-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #fbd6eb;
+    color: #6b4b5a;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  /* Chat Window */
+  #chat-box {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 320px;
+    max-height: 400px;
+    background-color: #fff6f9;
+    border: 2px solid #f3bdd4;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Comic Neue', cursive;
+    z-index: 1000;
+  }
+
+  #chat-header {
+    background-color: #f3bdd4;
+    padding: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+  }
+
+  #chat-messages {
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .message {
+    margin-bottom: 10px;
+  }
+
+  .user {
+    color: #aa5a7a;
+    font-weight: bold;
+  }
+
+  .bot {
+    color: #5c3e4d;
+    background: #ffe9f2;
+    padding: 8px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  #chat-input {
+    display: flex;
+    border-top: 1px solid #f3bdd4;
+  }
+
+  #chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 0 16px;
+    outline: none;
+    font-size: 14px;
+    background: #fff6f9;
+  }
+
+  #chat-input button {
+    background-color: #f3bdd4;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 0 0 16px 0;
+    cursor: pointer;
+  }
+</style>
+
+<!-- Chat Toggle Button -->
+<button id="chat-toggle">💬</button>
+
+<!-- Chat Box -->
+<div id="chat-box">
+  <div id="chat-header">Blushy 🌸</div>
+  <div id="chat-messages">
+    <div class="bot message">Hi there, soft soul 💗<br>Want to talk about how you're feeling?</div>
+  </div>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Type your feelings..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById("chat-toggle");
+  const chatBox = document.getElementById("chat-box");
+  const messages = document.getElementById("chat-messages");
+
+  toggle.addEventListener("click", () => {
+    chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+  });
+
+  function sendMessage() {
+    const input = document.getElementById("user-input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Add user message
+    messages.innerHTML += `<div class="user message">You: ${text}</div>`;
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+
+    // Bot reply
+    setTimeout(() => {
+      const reply = getBotReply(text);
+      messages.innerHTML += `<div class="bot message">${reply}</div>`;
+      messages.scrollTop = messages.scrollHeight;
+    }, 500);
+  }
+
+  function getBotReply(input) {
+    const txt = input.toLowerCase();
+
+    if (txt.includes("sad") || txt.includes("upset") || txt.includes("cry")) {
+      return "It's okay to feel sad 💗 You're not alone. Want a journal prompt? Try: <em>“If my sadness could speak, what would it say?”</em>";
+    } else if (txt.includes("anxious") || txt.includes("panic") || txt.includes("worried")) {
+      return "Take a deep breath with me 🌬️ In… 2…3…4… Out… 2…3…4… 💕 You’re doing your best.";
+    } else if (txt.includes("alone") || txt.includes("lonely")) {
+      return "I'm here with you 🤗 Your feelings are valid. Maybe write about: <em>“What does comfort look like to me?”</em>";
+    } else if (txt.includes("happy") || txt.includes("grateful")) {
+      return "Yay! 💖 Want to capture that moment? Write: <em>“Today my heart felt light because…”</em>";
+    } else if (txt.includes("prompt")) {
+      return "Here’s one: <em>“If I could talk to my past self right now, what would I say?”</em>";
+    } else {
+      return "Thank you for sharing 🌷 Would you like a journal prompt or just a soft affirmation?";
+    }
+  }
+</script>
 
   <script>
     function saveEntry() {
