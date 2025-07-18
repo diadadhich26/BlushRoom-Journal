@@ -26,6 +26,13 @@
       color: #bf5f82;
     }
 
+    .date-day {
+      text-align: center;
+      font-size: 1rem;
+      color: #666;
+      margin-top: -20px;
+    }
+
     .journal-box {
       display: flex;
       flex-direction: column;
@@ -131,12 +138,13 @@
 </head>
 <body>
   <h1>Dear Diary...</h1>
+  <div class="date-day" id="dateday"></div>
 
   <div class="journal-box">
     <textarea id="entry" placeholder="Write your heart out here..."></textarea>
     <div class="buttons">
       <button onclick="saveEntry()">Save Entry</button>
-      <button onclick="changeTheme()">Toggle Theme</button>
+      <button onclick="chooseTheme()">Choose Theme</button>
     </div>
 
     <div class="sticky-board">
@@ -156,15 +164,26 @@
       alert("Saved to local storage!");
     }
 
-    function changeTheme() {
-      document.body.classList.toggle("sunny-theme");
+    function chooseTheme() {
+      const themes = [
+        { bg: '#fffafc', color: '#333' },
+        { bg: '#e6f7ff', color: '#003366' },
+        { bg: '#fff0f5', color: '#663366' },
+        { bg: '#fef6e4', color: '#463f3a' },
+        { bg: '#f0fff0', color: '#2f4f4f' }
+      ];
+      const choice = prompt("Choose a theme number (1-5):\n1. Blush\n2. Sky\n3. Plum\n4. Cream\n5. Mint");
+      const theme = themes[parseInt(choice) - 1];
+      if (theme) {
+        document.body.style.background = theme.bg;
+        document.body.style.color = theme.color;
+      }
     }
 
     function talkAI() {
       alert("Hi, I'm Blushy 💕 Just checking in. How are you feeling today?");
     }
 
-    // Falling hearts
     function createHearts() {
       for (let i = 0; i < 15; i++) {
         const heart = document.createElement("div");
@@ -175,6 +194,13 @@
       }
     }
     createHearts();
+
+    function displayDateDay() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById("dateday").innerText = now.toLocaleDateString(undefined, options);
+    }
+    displayDateDay();
   </script>
 </body>
 </html>
