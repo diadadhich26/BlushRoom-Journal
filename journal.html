@@ -6,7 +6,6 @@
   <title>BlushRoom Journal</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* General Reset */
     * {
       margin: 0;
       padding: 0;
@@ -31,6 +30,7 @@
       padding: 30px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
     }
 
     h1 {
@@ -85,6 +85,59 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
+    .date-display {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .sticky-board {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .sticky-note {
+      background-color: #fff6f9;
+      color: #333;
+      width: 120px;
+      height: 120px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      font-size: 0.9em;
+      text-align: center;
+      position: relative;
+    }
+
+    .sticky-note::before {
+      content: "📌";
+      position: absolute;
+      top: -10px;
+      left: 10px;
+    }
+
+    .chat-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffe9f2;
+      color: #333;
+      padding: 12px 16px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .chat-bubble:hover {
+      transform: scale(1.05);
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 20px;
@@ -112,6 +165,7 @@
 
   <div class="container">
     <h1>Dear Diary…</h1>
+    <div class="date-display" id="dateDisplay"></div>
 
     <div class="mood-section">
       <p>Today I feel:</p>
@@ -123,15 +177,25 @@
     </div>
 
     <textarea placeholder="Write your heart out…"></textarea>
+
+    <div class="sticky-board">
+      <div class="sticky-note">You’re doing so well 💗</div>
+      <div class="sticky-note">One day at a time 🌷</div>
+      <div class="sticky-note">Breathe. You got this 💫</div>
+    </div>
+  </div>
+
+  <div class="chat-bubble" onclick="alert('Hey, I’m your soft AI buddy ✨ How are you feeling today?')">
+    🫧 Talk to me
   </div>
 
   <script>
     const themeSelect = document.getElementById('themeSelect');
     const body = document.body;
+    const dateDisplay = document.getElementById('dateDisplay');
 
     themeSelect.addEventListener('change', function () {
       const theme = this.value;
-
       if (theme === 'sunny') {
         body.style.backgroundImage = "url('https://i.ibb.co/yNvCmmf/sunny-bg.jpg')";
       } else if (theme === 'cloudy') {
@@ -142,6 +206,11 @@
         body.style.backgroundImage = "url('https://i.ibb.co/3rVG7Sp/dark-wood-bg.jpg')";
       }
     });
+
+    // Set date and day
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    dateDisplay.textContent = now.toLocaleDateString('en-US', options);
   </script>
 
 </body>
