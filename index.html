@@ -6,7 +6,6 @@
   <title>BlushRoom Journal</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* General Reset and Fonts */
     body {
       margin: 0;
       padding: 0;
@@ -17,6 +16,7 @@
                         radial-gradient(rgba(255, 182, 193, 0.08) 1px, transparent 1px);
       background-size: 20px 20px;
       background-position: 0 0, 10px 10px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -71,14 +71,50 @@
       background-color: #e393b8;
     }
 
+    .candles {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      background-image: url('https://cdn-icons-png.flaticon.com/128/6074/6074915.png');
+      background-repeat: repeat-y;
+      background-size: 30px;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .candles.left {
+      left: 0;
+    }
+
+    .candles.right {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
     footer {
       margin-top: 60px;
       font-size: 0.9rem;
       color: #888;
+      position: relative;
+      padding-bottom: 40px;
+    }
+
+    .footer-icons {
+      margin-top: 10px;
+    }
+
+    .footer-icons img {
+      width: 32px;
+      margin: 0 8px;
+      opacity: 0.7;
     }
   </style>
 </head>
 <body>
+  <div class="candles left"></div>
+  <div class="candles right"></div>
+
   <div class="container">
     <div class="box">
       <h1>BlushRoom Journal</h1>
@@ -88,7 +124,14 @@
       <a href="journal.html"><button class="btn">📓 Open Journal Box</button></a>
       <p class="cta">You deserve a moment to breathe and just be. Start now.</p>
     </div>
-    <footer>© 2025 BlushRoom by Dia Dadhich 🌸</footer>
+    <footer>
+      © 2025 BlushRoom by Dia Dadhich 🌸
+      <div class="footer-icons">
+        <img src="https://cdn-icons-png.flaticon.com/128/3143/3143643.png" alt="tea cup">
+        <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="moon">
+        <img src="https://cdn-icons-png.flaticon.com/128/6025/6025234.png" alt="sparkle">
+      </div>
+    </footer>
   </div>
 </body>
 </html>
