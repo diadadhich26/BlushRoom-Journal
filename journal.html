@@ -2,108 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlushRoom Journal Box</title>
-  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlushRoom Journal</title>
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Quicksand&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --border-decor: url('https://i.imgur.com/gkY8FnC.png'); /* Decorative border image */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: 'Quicksand', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff1f5;
+      background-color: #fff9f9;
       color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
-      padding: 30px;
-      background-image: var(--border-decor);
-      background-repeat: repeat;
-      background-size: 150px;
-      animation: softFloat 40s linear infinite;
-    }
-
-    @keyframes softFloat {
-      0% { background-position: 0 0; }
-      100% { background-position: 200px 200px; }
+      padding: 30px 20px;
+      overflow-x: hidden;
+      position: relative;
     }
 
     h1 {
       font-family: 'Handlee', cursive;
-      font-size: 3em;
+      font-size: 2.8rem;
       margin-bottom: 20px;
-      color: #c94f7c;
+      color: #d96c91;
     }
 
-    textarea {
-      width: 90%;
-      max-width: 800px;
-      height: 300px;
-      padding: 15px;
-      font-size: 1.1em;
-      border: 2px dashed #f4a6b1;
-      border-radius: 12px;
-      background-color: #fffdfd;
-      box-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
-      resize: none;
+    #journal-box {
+      width: 85%;
+      max-width: 700px;
+      min-height: 300px;
+      padding: 20px;
+      font-size: 1.2rem;
+      border: 2px dashed #ffa7c4;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 0 10px rgba(255, 182, 193, 0.4);
+      resize: vertical;
     }
 
-    .btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1em;
+    .button {
+      background-color: #f7b7c3;
+      color: #fff;
       border: none;
-      border-radius: 20px;
+      padding: 12px 24px;
+      border-radius: 25px;
+      margin: 20px 10px;
+      font-size: 1rem;
       cursor: pointer;
-      background-color: #f4a6b1;
-      color: white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    .btn:hover {
-      background-color: #e35c88;
+    .button:hover {
+      background-color: #e49daf;
     }
 
-    .theme-selector, .dark-toggle {
-      margin-top: 20px;
+    .theme-selector {
+      margin-top: 10px;
     }
 
-    .theme-selector select, .dark-toggle button {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 12px;
+    select {
+      padding: 8px 14px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      font-size: 1rem;
     }
 
     /* Themes */
-    body.soft-pink-theme {
-      background-color: #ffe4ec;
-      color: #222;
-    }
+    body.default-theme { background-color: #fff9f9; color: #333; }
+    body.soft-pink { background-color: #ffe4ec; color: #222; }
+    body.midnight { background-color: #121212; color: #eee; }
+    body.sunny { background-color: #fffce5; color: #444; }
 
-    body.midnight-theme {
-      background-color: #121212;
+    body.midnight textarea,
+    body.midnight select {
+      background-color: #2e2e2e;
       color: #f0f0f0;
     }
 
-    body.sunny-theme {
-      background-color: #fff9e6;
-      color: #444;
+    /* Decorative hearts & candles */
+    .heart, .candle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+      animation: float 6s infinite ease-in-out alternate;
     }
+
+    .heart {
+      background-color: #ffc0cb;
+      clip-path: polygon(
+        50% 0%,
+        61% 17%,
+        80% 25%,
+        100% 40%,
+        85% 70%,
+        50% 100%,
+        15% 70%,
+        0% 40%,
+        20% 25%,
+        39% 17%
+      );
+    }
+
+    .candle {
+      background: linear-gradient(to bottom, #ffe4b5, #ffdab9);
+      border-radius: 4px;
+      width: 8px;
+      height: 25px;
+    }
+
+    /* Float animation */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* Decorative placement */
+    .heart:nth-child(1) { top: 60px; left: 20px; }
+    .heart:nth-child(2) { top: 150px; right: 25px; animation-delay: 1s; }
+    .heart:nth-child(3) { bottom: 100px; left: 15px; animation-delay: 2s; }
+    .heart:nth-child(4) { bottom: 30px; right: 30px; animation-delay: 1.5s; }
+
+    .candle:nth-child(5) { top: 100px; left: 5%; animation-delay: 0.5s; }
+    .candle:nth-child(6) { top: 180px; right: 5%; animation-delay: 2.2s; }
+    .candle:nth-child(7) { bottom: 80px; left: 7%; animation-delay: 1.3s; }
+    .candle:nth-child(8) { bottom: 50px; right: 8%; animation-delay: 2.6s; }
   </style>
 </head>
 <body>
-  <h1>Dear Diary 🕯️</h1>
 
-  <textarea id="journal-entry" placeholder="Write your thoughts here..."></textarea>
+  <!-- Floating pastel hearts and candles (no image) -->
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="candle"></div>
+  <div class="candle"></div>
+  <div class="candle"></div>
+  <div class="candle"></div>
 
-  <button class="btn" onclick="saveEntry()">Save Entry</button>
+  <h1>Dear Diary 💗</h1>
+
+  <textarea id="journal-box" placeholder="Write your thoughts here..."></textarea>
+
+  <div>
+    <button class="button" id="save-btn">Save Entry</button>
+  </div>
 
   <div class="theme-selector">
     <label for="theme-picker">Choose Theme:</label>
@@ -115,38 +167,33 @@
     </select>
   </div>
 
-  <div class="dark-toggle">
-    <button class="btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-  </div>
-
+  <!-- JavaScript -->
   <script>
-    // Load saved entry
-    const textarea = document.getElementById("journal-entry");
-    const savedText = localStorage.getItem("blushroom-entry");
-    if (savedText) textarea.value = savedText;
-
-    function saveEntry() {
-      localStorage.setItem("blushroom-entry", textarea.value);
-      alert("Journal entry saved 💾");
-    }
-
-    // Theme switcher
+    const journalBox = document.getElementById("journal-box");
+    const saveBtn = document.getElementById("save-btn");
     const themePicker = document.getElementById("theme-picker");
-    const savedTheme = localStorage.getItem("selectedTheme") || "default";
-    document.body.classList.add(savedTheme + "-theme");
-    themePicker.value = savedTheme;
 
-    themePicker.addEventListener("change", () => {
-      document.body.classList.remove(savedTheme + "-theme");
+    // Load saved journal entry
+    const savedEntry = localStorage.getItem("journalEntry");
+    if (savedEntry) journalBox.value = savedEntry;
+
+    // Save
+    saveBtn.addEventListener("click", function () {
+      localStorage.setItem("journalEntry", journalBox.value);
+      alert("Your thoughts are saved 🫶🏻");
+    });
+
+    // Theme handling
+    const currentTheme = localStorage.getItem("selectedTheme") || "default";
+    document.body.classList.add(currentTheme + "-theme");
+    themePicker.value = currentTheme;
+
+    themePicker.addEventListener("change", function () {
+      document.body.classList.remove(currentTheme + "-theme");
       const newTheme = themePicker.value;
       document.body.classList.add(newTheme + "-theme");
       localStorage.setItem("selectedTheme", newTheme);
     });
-
-    // Dark mode toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle("midnight-theme");
-    }
   </script>
 </body>
 </html>
