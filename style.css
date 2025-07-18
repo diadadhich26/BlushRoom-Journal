@@ -44,4 +44,24 @@ button {
   cursor: pointer;
   font-size: 14px;
 }
+/* Theme options */
+body.default-theme {
+  background-color: #fef9f9;
+  color: #333;
+}
+
+body.soft-pink {
+  background-color: #ffe4ec;
+  color: #222;
+}
+
+body.midnight {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.sunny {
+  background-color: #fff9e6;
+  color: #444;
+}
 
