@@ -2,177 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlushRoom Journal Box</title>
-  
-  <!-- Google Fonts (Restored Aesthetic Font) -->
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlushRoom Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-default: #fffafc;
-      --bg-soft-pink: #ffe8f0;
-      --bg-midnight: #1a1a1a;
-      --bg-sunny: #fffde7;
-      --text-default: #333;
-      --text-light: #f0f0f0;
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-default);
-      color: var(--text-default);
-      transition: background 0.5s ease, color 0.5s ease;
-      padding: 2rem;
-      background-image: url('https://www.transparenttextures.com/patterns/purty-wood.png');
+      background-image: url('https://i.ibb.co/3rVG7Sp/dark-wood-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Quicksand', sans-serif;
+      color: #ffe9f2;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     h1 {
-      font-family: 'Caveat', cursive;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffe9f2;
     }
 
-    .journal-box {
-      background: rgba(255, 255, 255, 0.85);
-      border: 2px dashed #ffc0cb;
-      padding: 1.5rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: auto;
+    .theme-switcher {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .mood-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .mood-section span {
+      font-size: 1.8rem;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .mood-section span:hover {
+      transform: scale(1.2);
     }
 
     textarea {
       width: 100%;
       height: 200px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 1rem;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 1em;
+      font-family: 'Quicksand', sans-serif;
+      border: 1px solid #ccc;
       resize: vertical;
       background: #fff;
+      color: #333;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    .btn-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    button {
-      background-color: #ffc0cb;
-      border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #ff9eb8;
-    }
-
-    /* Theme Modes */
-    body.default-theme {
-      background-color: var(--bg-default);
-      color: var(--text-default);
-    }
-
-    body.soft-pink {
-      background-color: var(--bg-soft-pink);
-      color: var(--text-default);
-    }
-
-    body.midnight {
-      background-color: var(--bg-midnight);
-      color: var(--text-light);
-    }
-
-    body.sunny {
-      background-color: var(--bg-sunny);
-      color: var(--text-default);
-    }
-
-    /* Mood Tracker */
-    .mood-tracker {
-      margin: 2rem 0 1rem;
-      text-align: center;
-    }
-
-    .mood-tracker span {
-      font-size: 1.5rem;
-      margin: 0 0.5rem;
-      cursor: pointer;
-    }
-
-    /* Theme Selector */
-    .theme-selector {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    select {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      opacity: 0.6;
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.5em;
+      }
+      textarea {
+        height: 150px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="theme-selector">
-    <label>Choose Theme: </label>
-    <select id="theme-picker">
+
+  <div class="theme-switcher">
+    <label for="themeSelect">Choose Theme:</label>
+    <select id="themeSelect">
       <option value="default">Default</option>
-      <option value="soft-pink">Blush Bloom</option>
-      <option value="midnight">Cloudy Calm</option>
       <option value="sunny">Sunny Day</option>
+      <option value="cloudy">Cloudy Calm</option>
+      <option value="blush">Blush Bloom</option>
     </select>
   </div>
 
-  <div class="journal-box">
+  <div class="container">
     <h1>Dear Diary…</h1>
-    <div class="mood-tracker">
-      <strong>Today I feel:</strong><br />
-      <span>😊</span><span>😔</span><span>😡</span><span>😌</span><span>🥺</span>
+
+    <div class="mood-section">
+      <p>Today I feel:</p>
+      <span>😊</span>
+      <span>😔</span>
+      <span>😡</span>
+      <span>😌</span>
+      <span>🥺</span>
     </div>
-    <textarea placeholder="Write your heart out..."></textarea>
-    <div class="btn-group">
-      <button>Save Entry</button>
-      <button>Clear</button>
-    </div>
+
+    <textarea placeholder="Write your heart out…"></textarea>
   </div>
 
-  <footer>
-    ☁️ With softness, from BlushRoom 🌸
-  </footer>
-
   <script>
-    // Theme Toggle
-    const themePicker = document.getElementById("theme-picker");
-    const currentTheme = localStorage.getItem("selectedTheme") || "default";
+    const themeSelect = document.getElementById('themeSelect');
+    const body = document.body;
 
-    document.body.classList.add(currentTheme);
-    themePicker.value = currentTheme;
+    themeSelect.addEventListener('change', function () {
+      const theme = this.value;
 
-    themePicker.addEventListener("change", function () {
-      document.body.classList.remove(currentTheme);
-      const newTheme = themePicker.value;
-      document.body.classList.add(newTheme);
-      localStorage.setItem("selectedTheme", newTheme);
+      if (theme === 'sunny') {
+        body.style.backgroundImage = "url('https://i.ibb.co/yNvCmmf/sunny-bg.jpg')";
+      } else if (theme === 'cloudy') {
+        body.style.backgroundImage = "url('https://i.ibb.co/zfJkTqv/cloudy-calm.jpg')";
+      } else if (theme === 'blush') {
+        body.style.backgroundImage = "url('https://i.ibb.co/XJmLnMQ/blush-bloom.jpg')";
+      } else {
+        body.style.backgroundImage = "url('https://i.ibb.co/3rVG7Sp/dark-wood-bg.jpg')";
+      }
     });
   </script>
+
 </body>
 </html>
