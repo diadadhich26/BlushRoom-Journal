@@ -156,51 +156,47 @@
 
   <div class="ai-bubble" onclick="talkAI()">💬 Talk to Blushy</div>
 
-  <script>
-    function saveEntry() {
-      const text = document.getElementById("entry").value;
-      const today = new Date().toLocaleString();
-      localStorage.setItem(`entry-${today}`, text);
-      alert("Saved to local storage!");
-    }
+<script>
+  function saveEntry() {
+    const text = document.getElementById("entry").value;
+    const today = new Date().toLocaleString();
+    localStorage.setItem(`entry-${today}`, text);
+    alert("Saved to local storage!");
+  }
 
-    function chooseTheme() {
-      const themes = [
-        { bg: '#fffafc', color: '#333' },
-        { bg: '#e6f7ff', color: '#003366' },
-        { bg: '#fff0f5', color: '#663366' },
-        { bg: '#fef6e4', color: '#463f3a' },
-        { bg: '#f0fff0', color: '#2f4f4f' }
-      ];
-      const choice = prompt("Choose a theme number (1-5):\n1. Blush\n2. Sky\n3. Plum\n4. Cream\n5. Mint");
-      const theme = themes[parseInt(choice) - 1];
-      if (theme) {
-        document.body.style.background = theme.bg;
-        document.body.style.color = theme.color;
-      }
+  function chooseTheme() {
+    const themes = [
+      { bg: '#fffafc', color: '#333' },
+      { bg: '#e6f7ff', color: '#003366' },
+      { bg: '#fff0f5', color: '#663366' },
+      { bg: '#fef6e4', color: '#463f3a' },
+      { bg: '#f0fff0', color: '#2f4f4f' }
+    ];
+    const choice = prompt("Choose a theme number (1-5):\n1. Blush\n2. Sky\n3. Plum\n4. Cream\n5. Mint");
+    const theme = themes[parseInt(choice) - 1];
+    if (theme) {
+      document.body.style.background = theme.bg;
+      document.body.style.color = theme.color;
     }
+  }
 
-    function talkAI() {
-      alert("Hi, I'm Blushy 💕 Just checking in. How are you feeling today?");
-    }
+  function talkAI() {
+    alert("Hi, I'm Blushy 💕 Just checking in. How are you feeling today?");
+  }
 
-    function createHearts() {
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("falling-heart");
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDelay = Math.random() * 5 + "s";
-        document.body.appendChild(heart);
-      }
+  function createHearts() {
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("falling-heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDelay = Math.random() * 5 + "s";
+      document.body.appendChild(heart);
     }
-    createHearts();
+  }
 
-    function displayDateDay() {
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById("dateday").innerText = now.toLocaleDateString(undefined, options);
-    }
-    displayDateDay();
-  </script>
+  // Make sure hearts start falling once DOM is ready
+  document.addEventListener("DOMContentLoaded", createHearts);
+</script>
+
 </body>
 </html>
