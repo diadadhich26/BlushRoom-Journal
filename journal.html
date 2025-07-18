@@ -3,131 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BlushRoom Journal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>My Journal</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    /* Reset and Base */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, #fffafc, #ffe4ec);
+      background-color: #fff4f8;
       color: #333;
+      padding: 2rem;
       position: relative;
       overflow-x: hidden;
     }
 
     h1 {
-      font-family: 'Gloock', serif;
       text-align: center;
-      margin-top: 40px;
       font-size: 2.5rem;
-      color: #bf5f82;
+      margin-bottom: 1rem;
+      color: #ff7ca8;
     }
 
-    #date-display {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      color: #888;
-    }
-
+    /* Journal Box */
     .journal-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 30px auto;
-      padding: 20px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(255, 140, 180, 0.2);
+      padding: 1.5rem;
+      margin: 0 auto;
       width: 90%;
       max-width: 700px;
-      background-color: #fff9f9;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
     textarea {
       width: 100%;
-      height: 250px;
-      padding: 15px;
-      border-radius: 15px;
-      border: 1px solid #ddd;
-      resize: none;
-      font-family: 'Quicksand', sans-serif;
+      height: 200px;
+      border: none;
+      outline: none;
+      padding: 1rem;
       font-size: 1rem;
-      background: #fff;
+      background: #fffdfd;
+      border-radius: 12px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      resize: vertical;
     }
 
-    .buttons {
-      margin-top: 20px;
+    .btn-group {
+      margin-top: 1rem;
       display: flex;
       justify-content: space-between;
-      width: 100%;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
-    button {
-      padding: 10px 20px;
-      background-color: #f7cde0;
+    button, select {
+      padding: 0.6rem 1rem;
       border: none;
       border-radius: 12px;
-      font-size: 1rem;
+      background-color: #ffcde0;
+      color: #333;
+      font-weight: 600;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #f4b8d0;
+    button:hover, select:hover {
+      background-color: #ffbad2;
     }
 
+    /* Theme Styles */
+    body.theme-sunny { background-color: #fffbe0; }
+    body.theme-bloom { background-color: #ffeef8; }
+    body.theme-cloudy { background-color: #e0f7fa; }
+    body.theme-mint { background-color: #f0fff4; }
+    body.theme-dusk { background-color: #f3e5f5; }
+
+    /* Sticky Notes Board */
     .sticky-board {
+      margin-top: 2rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 1rem;
       justify-content: center;
     }
 
-    .sticky-note {
-      background-color: #fff6f8;
-      border: 1px dashed #ffc4d6;
-      padding: 12px;
-      border-radius: 10px;
+    .sticky {
+      width: 150px;
+      height: 150px;
+      background-color: #fff1f5;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 1rem;
       font-size: 0.9rem;
-      width: 120px;
-      height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      position: relative;
+      font-style: italic;
     }
 
-    .ai-bubble {
+    /* AI Chat Bubble */
+    .ai-chat {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #fff0f4;
-      border: 1px solid #ffc2d1;
+      background: #ffd1ec;
       border-radius: 20px;
-      padding: 10px 16px;
-      cursor: pointer;
+      padding: 1rem 1.5rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      font-size: 14px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 100;
     }
 
+    /* Date and Day */
+    .date-bar {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* Falling Hearts */
     .heart {
       position: fixed;
-      width: 24px;
-      height: 24px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Heart_corazón.svg/768px-Heart_corazón.svg.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: fall 6s linear infinite;
-      z-index: 0;
+      top: -50px;
+      font-size: 24px;
+      color: #ff80ab;
+      animation: fall linear infinite;
       pointer-events: none;
+      z-index: 1;
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(-50px);
+        transform: translateY(0);
         opacity: 1;
       }
       100% {
@@ -139,69 +154,79 @@
 </head>
 <body>
 
-  <h1>Dear Diary...</h1>
-  <div id="date-display"></div>
+  <!-- Date and Day -->
+  <div class="date-bar" id="dateDisplay"></div>
 
+  <!-- Title -->
+  <h1>Dear Diary 🩷</h1>
+
+  <!-- Journal Box -->
   <div class="journal-box">
-    <textarea id="entry" placeholder="Write your heart out here..."></textarea>
-    <div class="buttons">
-      <button onclick="saveEntry()">Save Entry</button>
-      <button onclick="chooseTheme()">Choose Theme</button>
-    </div>
-
-    <div class="sticky-board">
-      <div class="sticky-note">You are loved 💗</div>
-      <div class="sticky-note">Take deep breaths 🌸</div>
-      <div class="sticky-note">You made it this far ✨</div>
+    <textarea placeholder="Write your thoughts here..."></textarea>
+    <div class="btn-group">
+      <select id="theme-picker">
+        <option value="sunny">🌞 Sunny Day</option>
+        <option value="bloom">🌸 Blush Bloom</option>
+        <option value="cloudy">☁️ Cloudy Calm</option>
+        <option value="mint">🌿 Mint Moment</option>
+        <option value="dusk">🌙 Lavender Dusk</option>
+      </select>
+      <button onclick="saveEntry()">💾 Save Entry</button>
     </div>
   </div>
 
-  <div class="ai-bubble" onclick="talkAI()">💬 Talk to Blushy</div>
+  <!-- Sticky Notes -->
+  <div class="sticky-board">
+    <div class="sticky">You’re allowed to pause 🌼</div>
+    <div class="sticky">It’s okay not to be okay 🍃</div>
+    <div class="sticky">You’re doing your best 🧸</div>
+    <div class="sticky">Progress, not perfection 🐣</div>
+  </div>
 
+  <!-- AI Chat Bubble -->
+  <div class="ai-chat">Hi there! Just checking in 💬</div>
+
+  <!-- Falling Hearts Script -->
   <script>
-    // Show date and day
-    const today = new Date();
-    const dateString = today.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    document.getElementById("date-display").textContent = dateString;
-
-    function saveEntry() {
-      const text = document.getElementById("entry").value;
-      const timestamp = new Date().toLocaleString();
-      localStorage.setItem(`entry-${timestamp}`, text);
-      alert("Saved your journal entry 💖");
-    }
-
-    function chooseTheme() {
-      const themes = [
-        { bg: '#fffafc', color: '#333' },       // Blush
-        { bg: '#e6f7ff', color: '#003366' },    // Sky
-        { bg: '#fff0f5', color: '#663366' },    // Plum
-        { bg: '#fef6e4', color: '#463f3a' },    // Cream
-        { bg: '#f0fff0', color: '#2f4f4f' }     // Mint
-      ];
-      const choice = prompt("Choose a theme (1-5):\n1. Blush 🌸\n2. Sky ☁️\n3. Plum 🍇\n4. Cream 🍦\n5. Mint 🌿");
-      const theme = themes[parseInt(choice) - 1];
-      if (theme) {
-        document.body.style.background = theme.bg;
-        document.body.style.color = theme.color;
-      }
-    }
-
-    function talkAI() {
-      alert("Hi, I'm Blushy 💬 Just checking in. How are you feeling today?");
-    }
-
-    function createHearts() {
+    function createFallingHearts() {
       for (let i = 0; i < 20; i++) {
-        const heart = document.createElement("div");
+        const heart = document.createElement("span");
         heart.classList.add("heart");
+        heart.innerText = "💗";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDelay = Math.random() * 6 + "s";
+        heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+        heart.style.animationDelay = Math.random() * 5 + "s";
         document.body.appendChild(heart);
       }
     }
 
-    createHearts();
+    createFallingHearts();
+  </script>
+
+  <!-- Date Script -->
+  <script>
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("dateDisplay").textContent = now.toLocaleDateString("en-US", options);
+  </script>
+
+  <!-- Theme Picker Script -->
+  <script>
+    const themePicker = document.getElementById("theme-picker");
+    const storedTheme = localStorage.getItem("selectedTheme") || "bloom";
+    document.body.classList.add("theme-" + storedTheme);
+    themePicker.value = storedTheme;
+
+    themePicker.addEventListener("change", function () {
+      const newTheme = themePicker.value;
+      document.body.className = "";
+      document.body.classList.add("theme-" + newTheme);
+      localStorage.setItem("selectedTheme", newTheme);
+    });
+
+    function saveEntry() {
+      alert("Your journal entry has been saved! (This is a placeholder.)");
+    }
   </script>
 </body>
 </html>
