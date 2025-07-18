@@ -4,102 +4,91 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BlushRoom Journal</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* General Reset and Fonts */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Quicksand', sans-serif;
-      background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3C8.5 1.5 6 1.5 4.5 3C3 4.5 3 7 4.5 8.5L10 14L15.5 8.5C17 7 17 4.5 15.5 3C14 1.5 11.5 1.5 10 3Z' fill='%23f5c2cd'/%3E%3C/svg%3E") repeat;
-      background-color: #fffafc;
-      color: #333;
+      background-color: #fff0f5;
+      color: #444;
+      background-image: radial-gradient(rgba(255, 192, 203, 0.08) 1px, transparent 1px),
+                        radial-gradient(rgba(255, 182, 193, 0.08) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
     }
 
-    header {
-      background-color: rgba(255, 228, 236, 0.8);
-      padding: 1rem 2rem;
+    .container {
       text-align: center;
-      border-bottom: 2px dashed #f8cddf;
+      padding: 80px 20px;
     }
 
-    header h1 {
-      font-family: 'Shadows Into Light', cursive;
-      font-size: 2.5rem;
-      margin: 0;
-      color: #c05d87;
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      color: #d06b90;
+      margin-bottom: 10px;
     }
 
-    main {
-      padding: 3rem 2rem;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.6);
-      margin: 2rem auto;
+    p.description {
+      font-size: 1.2rem;
       max-width: 700px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.3);
-      border: 2px solid #f8dbe7;
+      margin: 0 auto 40px auto;
+      color: #5c5c5c;
     }
 
-    .description {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-      color: #555;
+    .box {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+      display: inline-block;
+      margin-top: 40px;
+      max-width: 750px;
     }
 
-    .journal-btn {
-      padding: 0.75rem 1.5rem;
-      background-color: #f4a8c2;
-      color: white;
+    .cta {
+      font-style: italic;
+      color: #aa5a74;
+      margin-top: 20px;
+    }
+
+    .btn {
+      background-color: #f7accf;
+      color: #fff;
+      padding: 14px 28px;
       border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
+      border-radius: 30px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
 
-    .journal-btn:hover {
-      background-color: #e08dab;
+    .btn:hover {
+      background-color: #e393b8;
     }
 
     footer {
-      text-align: center;
-      padding: 1.5rem;
+      margin-top: 60px;
       font-size: 0.9rem;
-      color: #999;
-    }
-
-    .soft-cta {
-      margin-top: 3rem;
-      font-style: italic;
-      color: #aa5a7a;
+      color: #888;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>BlushRoom Journal</h1>
-  </header>
-
-  <main>
-    <p class="description">
-      Welcome to your cozy online journal — a gentle space to feel, reflect, and heal.
-      Write privately, track your moods, and embrace your softest self here.
-    </p>
-
-    <a href="journal.html" class="journal-btn">📔 Open Journal Box</a>
-
-    <p class="soft-cta">You deserve a moment to breathe and just be. Start now.</p>
-  </main>
-
-  <footer>
-    &copy; 2025 BlushRoom by Dia Dadhich 🌸
-  </footer>
-
+  <div class="container">
+    <div class="box">
+      <h1>BlushRoom Journal</h1>
+      <p class="description">
+        Welcome to your cozy online journal — a gentle space to feel, reflect, and heal. Write privately, track your moods, and embrace your softest self here.
+      </p>
+      <a href="journal.html"><button class="btn">📓 Open Journal Box</button></a>
+      <p class="cta">You deserve a moment to breathe and just be. Start now.</p>
+    </div>
+    <footer>© 2025 BlushRoom by Dia Dadhich 🌸</footer>
+  </div>
 </body>
 </html>
