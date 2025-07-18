@@ -38,8 +38,26 @@
   </style>
 </head>
 <body>
+  <button onclick="toggleTheme()" id="themeToggle">🌙 Dark Mode</button>
   <h1>My Journal ✨</h1>
   <textarea class="journal-area" placeholder="Write what's on your mind..."></textarea>
-  <button class="save-btn">Save Entry</button>
+  <button class="save-btn">Save Entry</button> <script>
+  function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const mode = document.body.classList.contains('dark-mode') ? "Light" : "Dark";
+    document.getElementById('themeToggle').innerText = mode === "Light" ? "☀️ Light Mode" : "🌙 Dark Mode";
+    // Optionally save theme in localStorage
+    localStorage.setItem("theme", document.body.classList.contains('dark-mode') ? "dark" : "light");
+  }
+
+  // Load saved theme on page load
+  window.onload = function() {
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add('dark-mode');
+      document.getElementById('themeToggle').innerText = "☀️ Light Mode";
+    }
+  }
+</script>
+
 </body>
 </html>
