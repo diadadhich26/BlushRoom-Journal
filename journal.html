@@ -41,6 +41,16 @@
 <body>
   <button onclick="toggleTheme()" id="themeToggle">🌙 Dark Mode</button>
   <h1>My Journal ✨</h1>
+  <div id="streak-count" class="streak-display">🔥 0 day streak</div>
+  <div class="theme-selector">
+  <label>Choose Theme:</label>
+  <select id="theme-picker">
+    <option value="default">Default</option>
+    <option value="soft-pink">Soft Pink</option>
+    <option value="midnight">Midnight</option>
+    <option value="sunny">Sunny</option>
+  </select>
+</div>
   <textarea class="journal-area" placeholder="Write what's on your mind..."></textarea>
   <button class="save-btn">Save Entry</button> <script>
   function toggleTheme() {
@@ -55,7 +65,53 @@
   window.onload = function() {
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add('dark-mode');
-      document.getElementById('themeToggle').innerText = "☀️ Light Mode";
+      document.getElementById('themeToggle').innerText = "☀️ Light Mode"; <script>
+  const journalTextarea = document.getElementById("journal-entry");
+  const streakDisplay = document.getElementById("streak-count");
+
+  function getTodayDateStr() {
+    return new Date().toLocaleDateString();
+  }
+
+  function updateStreak() {
+    const lastDate = localStorage.getItem("lastJournalDate");
+    const streak = parseInt(localStorage.getItem("journalStreak")) || 0;
+    const today = getTodayDateStr();
+
+    if (lastDate === today) {
+      // Already wrote today
+      streakDisplay.textContent = `🔥 ${streak} day streak`;
+    } else {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toLocaleDateString();
+
+      if (lastDate === yesterdayStr) {
+        localStorage.setItem("journalStreak", streak + 1);
+        localStorage.setItem("lastJournalDate", today);
+        streakDisplay.textContent = `🔥 ${streak + 1} day streak`;
+      } else {
+        localStorage.setItem("journalStreak", 1);
+        localStorage.setItem("lastJournalDate", today);
+        streakDisplay.textContent = `🔥 1 day streak`;
+      }
+    }
+  }
+
+  document.getElementById("save-entry").addEventListener("click", function () {
+    const entry = journalTextarea.value.trim();
+    if (entry !== "") {
+      const today = getTodayDateStr();
+      localStorage.setItem("journal_" + today, entry);
+      localStorage.setItem("lastJournalDate", today);
+      updateStreak();
+    }
+  });
+
+  // Show streak on load
+  updateStreak();
+</script>
+
     }
   }
 </script>
