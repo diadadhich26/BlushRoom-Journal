@@ -2,133 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BlushRoom Journal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Soft Journal</title>
+
+  <!-- Font and Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
+      font-family: 'Quicksand', sans-serif;
+      background: #fef9f5;
+      color: #444;
       margin: 0;
       padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, #fffafc, #ffe4ec);
-      color: #333;
-      position: relative;
       overflow-x: hidden;
     }
 
-    h1 {
-      font-family: 'Gloock', serif;
+    header {
       text-align: center;
-      margin-top: 40px;
-      font-size: 2.5rem;
-      color: #bf5f82;
-    }
-
-    .date-display {
-      text-align: center;
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 10px;
-    }
-
-    .journal-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 40px auto;
       padding: 20px;
-      width: 90%;
-      max-width: 700px;
-      background-color: #fff9f9;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      position: relative;
-      z-index: 2;
+    }
+
+    .date-day {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #666;
     }
 
     textarea {
-      width: 100%;
-      height: 250px;
+      display: block;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      height: 300px;
       padding: 15px;
-      border-radius: 15px;
-      border: 1px solid #ddd;
-      resize: none;
       font-size: 1rem;
-      background: #fff;
-    }
-
-    .buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+      border: 2px solid #f0d9da;
+      border-radius: 12px;
+      background: #fffaf9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      resize: none;
     }
 
     button {
+      display: block;
+      margin: 10px auto 30px;
       padding: 10px 20px;
-      background-color: #f7cde0;
-      border: none;
-      border-radius: 12px;
       font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #f7c8cc;
+      color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #f4b8d0;
+      background-color: #f8aab1;
     }
 
-    .sticky-board {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-      justify-content: center;
-    }
-
-    .sticky-note {
-      background-color: #fff6f8;
-      border: 1px dashed #ffc4d6;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      width: 120px;
-      height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .ai-bubble {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #fff0f4;
-      border: 1px solid #ffc2d1;
-      border-radius: 20px;
-      padding: 10px 16px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      font-size: 14px;
-      z-index: 10;
-    }
-
+    /* Falling Heart Animation */
     .falling-heart {
       position: fixed;
       width: 20px;
       height: 20px;
       background: url('https://i.imgur.com/fnVjQUp.png') no-repeat center;
       background-size: contain;
-      animation: fall 12s linear infinite;
+      animation: fall 20s linear infinite;
       z-index: 1;
       pointer-events: none;
+      opacity: 0.4;
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(-100px);
-        opacity: 1;
+        transform: translateY(-10vh);
+        opacity: 0.4;
       }
       100% {
         transform: translateY(100vh);
@@ -137,72 +85,52 @@
     }
   </style>
 </head>
+
 <body>
-  <h1>Dear Diary...</h1>
-  <div class="date-display" id="dateDisplay"></div>
+  <header>
+    <h1>🩷 Soft Journal</h1>
+    <div class="date-day" id="date-day"></div>
+  </header>
 
-  <div class="journal-box">
-    <textarea id="entry" placeholder="Write your heart out here..."></textarea>
-    <div class="buttons">
-      <button onclick="saveEntry()">Save Entry</button>
-      <button onclick="chooseTheme()">Choose Theme</button>
-    </div>
-
-    <div class="sticky-board">
-      <div class="sticky-note">You are loved 💗</div>
-      <div class="sticky-note">Take deep breaths 🌸</div>
-      <div class="sticky-note">You made it this far ✨</div>
-    </div>
-  </div>
-
-  <div class="ai-bubble" onclick="talkAI()">💬 Talk to Blushy</div>
+  <textarea id="journalEntry" placeholder="Write your soft thoughts here..."></textarea>
+  <button onclick="saveEntry()">Save Entry</button>
 
   <script>
+    // Show date and day
+    function showDateDay() {
+      const now = new Date();
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const formatted = now.toDateString() + " | " + days[now.getDay()];
+      document.getElementById("date-day").innerText = formatted;
+    }
+    showDateDay();
+
+    // Save entry to localStorage
     function saveEntry() {
-      const text = document.getElementById("entry").value;
-      const today = new Date().toLocaleString();
-      localStorage.setItem(`entry-${today}`, text);
-      alert("Saved to local storage!");
+      const entry = document.getElementById("journalEntry").value;
+      localStorage.setItem("journalEntry", entry);
+      alert("Your thoughts are safe 🌸");
     }
 
-    function chooseTheme() {
-      const themes = [
-        { bg: '#fffafc', color: '#333' },
-        { bg: '#e6f7ff', color: '#003366' },
-        { bg: '#fff0f5', color: '#663366' },
-        { bg: '#fef6e4', color: '#463f3a' },
-        { bg: '#f0fff0', color: '#2f4f4f' }
-      ];
-      const choice = prompt("Choose a theme number (1-5):\n1. Blush\n2. Sky\n3. Plum\n4. Cream\n5. Mint");
-      const theme = themes[parseInt(choice) - 1];
-      if (theme) {
-        document.body.style.background = theme.bg;
-        document.body.style.color = theme.color;
+    // Load previous entry
+    window.onload = function () {
+      const saved = localStorage.getItem("journalEntry");
+      if (saved) {
+        document.getElementById("journalEntry").value = saved;
       }
-    }
+      createHearts();
+    };
 
-    function talkAI() {
-      alert("Hi, I'm Blushy 💕 Just checking in. How are you feeling today?");
-    }
-
+    // Create Falling Hearts
     function createHearts() {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 8; i++) {
         const heart = document.createElement("div");
         heart.classList.add("falling-heart");
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDelay = Math.random() * 10 + "s";
+        heart.style.animationDelay = Math.random() * 20 + "s";
         document.body.appendChild(heart);
       }
     }
-
-    function setDateDisplay() {
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('dateDisplay').textContent = now.toLocaleDateString(undefined, options);
-    }
-
-    createHearts();
-    setDateDisplay();
   </script>
 </body>
 </html>
