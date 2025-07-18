@@ -115,6 +115,21 @@
     }
   }
 </script>
+  <script>
+  const themePicker = document.getElementById("theme-picker");
+  const currentTheme = localStorage.getItem("selectedTheme") || "default";
+
+  document.body.classList.add(currentTheme + "-theme");
+  themePicker.value = currentTheme;
+
+  themePicker.addEventListener("change", function () {
+    document.body.classList.remove(currentTheme + "-theme");
+    const newTheme = themePicker.value;
+    document.body.classList.add(newTheme + "-theme");
+    localStorage.setItem("selectedTheme", newTheme);
+  });
+</script>
+
 
 </body>
 </html>
