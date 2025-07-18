@@ -1,0 +1,23 @@
+/* style.css */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff5f8;
+  color: #3b3b3b;
+  text-align: center;
+  padding: 40px;
+}
+textarea {
+  width: 80%;
+  height: 200px;
+  font-size: 16px;
+  padding: 10px;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ffb3c6;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
