@@ -1,99 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BlushRoom Journal</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kalam&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom right, #fff6f9, #ffe8ec);
+      background: linear-gradient(to bottom, #fffafc, #ffe4ec);
+      color: #333;
       position: relative;
       overflow-x: hidden;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 40px auto;
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      position: relative;
-      z-index: 1;
-    }
-
     h1 {
-      font-family: 'Kalam', cursive;
+      font-family: 'Gloock', serif;
       text-align: center;
+      margin-top: 40px;
       font-size: 2.5rem;
-      color: #ff7f9f;
+      color: #bf5f82;
     }
 
-    .theme-toggle {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .emoji-row {
-      text-align: center;
-      font-size: 1.8rem;
-      margin: 10px 0;
+    .journal-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 700px;
+      background-color: #fff9f9;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
     textarea {
       width: 100%;
-      height: 200px;
+      height: 250px;
+      padding: 15px;
       border-radius: 15px;
-      padding: 1rem;
-      font-size: 1rem;
-      font-family: 'Quicksand', sans-serif;
-      border: 1px solid #ffcbd1;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
       resize: none;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #f7cde0;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f4b8d0;
     }
 
     .sticky-board {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+      justify-content: center;
     }
 
     .sticky-note {
-      background: #fff0f3;
-      border: 1px solid #ffcbd1;
+      background-color: #fff6f8;
+      border: 1px dashed #ffc4d6;
+      padding: 12px;
       border-radius: 10px;
-      padding: 1rem;
       font-size: 0.9rem;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
-      font-family: 'Kalam', cursive;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
-    .date-day {
-      text-align: right;
-      font-size: 0.9rem;
-      color: #999;
-      margin-bottom: 10px;
-    }
-
-    /* Dropping hearts */
-    .heart {
+    .ai-bubble {
       position: fixed;
-      top: -20px;
-      font-size: 20px;
-      color: #ffb6c1;
-      animation: drop 8s linear infinite;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff0f4;
+      border: 1px solid #ffc2d1;
+      border-radius: 20px;
+      padding: 10px 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    .falling-heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/fnVjQUp.png') no-repeat center;
+      background-size: contain;
+      animation: fall 6s linear infinite;
       z-index: 0;
     }
 
-    @keyframes drop {
+    @keyframes fall {
       0% {
-        transform: translateY(0);
+        transform: translateY(-100px);
         opacity: 1;
       }
       100% {
@@ -101,85 +127,54 @@
         opacity: 0;
       }
     }
-
-    /* AI Chat bubble */
-    .chat-bubble {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #ffecf0;
-      border-radius: 20px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 250px;
-      font-size: 0.9rem;
-    }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="theme-toggle">
-      <label for="theme">Choose Theme: </label>
-      <select id="theme">
-        <option value="default">Default</option>
-        <option value="sunny">Sunny</option>
-        <option value="blush">Blush</option>
-      </select>
+  <h1>Dear Diary...</h1>
+
+  <div class="journal-box">
+    <textarea id="entry" placeholder="Write your heart out here..."></textarea>
+    <div class="buttons">
+      <button onclick="saveEntry()">Save Entry</button>
+      <button onclick="changeTheme()">Toggle Theme</button>
     </div>
-
-    <h1>Dear Diary...</h1>
-    <div class="emoji-row">😊 😌 😡 😊 🥺</div>
-
-    <textarea placeholder="Write your heart out..."></textarea>
 
     <div class="sticky-board">
-      <div class="sticky-note">Take a deep breath 💖</div>
-      <div class="sticky-note">You’re growing, even on slow days 🌱</div>
-      <div class="sticky-note">One step at a time 🐾</div>
-      <div class="sticky-note">Soft is strong too 🌸</div>
+      <div class="sticky-note">You are loved 💗</div>
+      <div class="sticky-note">Take deep breaths 🌸</div>
+      <div class="sticky-note">You made it this far ✨</div>
     </div>
   </div>
 
-  <div class="chat-bubble">
-    🌼 How are you feeling today?<br>
-    I'm here if you want to talk.
-  </div>
+  <div class="ai-bubble" onclick="talkAI()">💬 Talk to Blushy</div>
 
-  <!-- Hearts rain -->
   <script>
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerHTML = '❤';
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.fontSize = (Math.random() * 10 + 10) + 'px';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 8000);
+    function saveEntry() {
+      const text = document.getElementById("entry").value;
+      const today = new Date().toLocaleString();
+      localStorage.setItem(`entry-${today}`, text);
+      alert("Saved to local storage!");
     }
-    setInterval(createHeart, 300);
 
-    // Theme switching
-    document.getElementById('theme').addEventListener('change', function () {
-      const value = this.value;
-      if (value === 'sunny') {
-        document.body.style.background = 'linear-gradient(to right, #fff1bd, #ffd7d7)';
-      } else if (value === 'blush') {
-        document.body.style.background = 'linear-gradient(to bottom right, #fddde6, #ffe0e9)';
-      } else {
-        document.body.style.background = 'linear-gradient(to bottom right, #fff6f9, #ffe8ec)';
+    function changeTheme() {
+      document.body.classList.toggle("sunny-theme");
+    }
+
+    function talkAI() {
+      alert("Hi, I'm Blushy 💕 Just checking in. How are you feeling today?");
+    }
+
+    // Falling hearts
+    function createHearts() {
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(heart);
       }
-    });
-
-    // Show today's date and day
-    const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateText = now.toLocaleDateString(undefined, options);
-    const dateElem = document.createElement('div');
-    dateElem.className = 'date-day';
-    dateElem.textContent = dateText;
-    document.querySelector('.container').prepend(dateElem);
+    }
+    createHearts();
   </script>
 </body>
-
 </html>
