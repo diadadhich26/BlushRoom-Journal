@@ -2,136 +2,161 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dear Diary</title>
+  <title>BlushRoom Journal</title>
   <style>
-    :root {
-      --bg-color: #fff5f8;
-      --text-color: #8a0643;
-      --button-color: #f8bfc9;
-    }
-
     body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
       margin: 0;
       padding: 0;
-      font-family: "Georgia", serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
     }
 
-    h1 {
-      margin-top: 40px;
-      font-size: 3rem;
-      color: var(--text-color);
-    }
-
-    #date {
-      margin: 10px 0 30px;
-      font-size: 1.1rem;
-      color: #555;
-    }
-
-    .journal-box {
-      background: white;
-      padding: 20px;
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
       border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 60%;
-      max-width: 700px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     textarea {
       width: 100%;
-      height: 250px;
-      border: 1px solid #eee;
-      border-radius: 10px;
+      height: 200px;
       padding: 15px;
-      font-family: "Courier New", monospace;
-      font-size: 1rem;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
       resize: none;
-      color: #333;
     }
 
-    .buttons {
+    .button-row, .affirmations {
       display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
+    button, select {
+      background: #f9c2d1;
       border: none;
-      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 12px;
       cursor: pointer;
-      background-color: var(--button-color);
-      color: white;
-      transition: background 0.3s;
+      transition: 0.2s;
     }
 
-    button:hover {
-      background-color: #e09da9;
+    button:hover, select:hover {
+      background: #f7a6be;
     }
 
-    /* Soft Themes */
-    body.theme-blush {
-      --bg-color: #fff5f8;
-      --text-color: #8a0643;
-      --button-color: #f8bfc9;
+    .affirmation-card {
+      background: #fff0f5;
+      border: 1px dashed #f7a6be;
+      padding: 12px 20px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: bold;
     }
 
-    body.theme-cloudy {
-      --bg-color: #f0f4f8;
-      --text-color: #3b3b3b;
-      --button-color: #aecbe5;
+    /* AI Chat Bubble */
+    .chat-bubble {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background-color: #fbd0e3;
+      color: #333;
+      padding: 12px 18px;
+      border-radius: 20px 20px 20px 0;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      max-width: 200px;
+      font-size: 14px;
     }
 
-    body.theme-sunny {
-      --bg-color: #fff9ec;
-      --text-color: #a14a00;
-      --button-color: #fcd7a1;
+    .chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffb6c1;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
     }
 
+    .bottom-row {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
   </style>
 </head>
-<body class="theme-blush">
+<body>
 
-  <h1>Dear Diary...</h1>
-  <div id="date"></div>
-
-  <div class="journal-box">
+  <div class="container">
     <textarea placeholder="Write your heart out here..."></textarea>
-    <div class="buttons">
+
+    <div class="button-row">
       <button onclick="saveEntry()">Save Entry</button>
-      <button onclick="toggleTheme()">Choose Theme</button>
+
+      <select id="themePicker" onchange="changeTheme()">
+        <option value="">Choose Theme</option>
+        <option value="sunny">Sunny Day ☀️</option>
+        <option value="cloudy">Cloudy Calm ☁️</option>
+        <option value="blush">Blush Bloom 🌸</option>
+      </select>
+    </div>
+
+    <div class="button-row affirmations">
+      <div class="affirmation-card">You are loved 💗</div>
+      <div class="affirmation-card">Take deep breaths 🌺</div>
+      <div class="affirmation-card">You made it this far ✨</div>
+    </div>
+
+    <div class="bottom-row">
+      🌷 You are doing your best. You are enough. Everything will be okay. 🌷
     </div>
   </div>
 
-  <script>
-    // Set current date
-    const dateEl = document.getElementById("date");
-    const today = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    dateEl.innerText = today.toLocaleDateString('en-US', options);
+  <!-- AI Chat Bubble -->
+  <div class="chat-bubble" id="blushy">Hi, how are you doing? I'm Blushy 💬</div>
+  <div class="chat-icon" onclick="respondBlushy()">💬</div>
 
-    // Placeholder function
+  <script>
     function saveEntry() {
-      alert("Saved! (But not really — just a placeholder)");
+      alert("Saved! 💾 (This is just a placeholder in demo)");
     }
 
-    // Theme toggler
-    let themeIndex = 0;
-    const themes = ['theme-blush', 'theme-cloudy', 'theme-sunny'];
+    function changeTheme() {
+      const theme = document.getElementById("themePicker").value;
+      switch (theme) {
+        case "sunny":
+          document.body.style.background = "linear-gradient(to bottom, #fff9e6, #fff2cc)";
+          break;
+        case "cloudy":
+          document.body.style.background = "linear-gradient(to bottom, #e0eafc, #cfdef3)";
+          break;
+        case "blush":
+          document.body.style.background = "linear-gradient(to bottom, #ffe6f0, #fff0f5)";
+          break;
+        default:
+          document.body.style.background = "";
+      }
+    }
 
-    function toggleTheme() {
-      document.body.classList.remove(...themes);
-      themeIndex = (themeIndex + 1) % themes.length;
-      document.body.classList.add(themes[themeIndex]);
+    function respondBlushy() {
+      const blushy = document.getElementById("blushy");
+      blushy.innerText = "You're not alone. I'm here 💗";
     }
   </script>
 
 </body>
 </html>
+
