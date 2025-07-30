@@ -1,41 +1,65 @@
-document.getElementById('themeSelect').addEventListener('change', function () {
-  document.body.className = this.value;
-});
+const input = document.getElementById("journalInput");
+const entriesContainer = document.getElementById("entriesContainer");
+const streakDisplay = document.getElementById("streakCount");
+
+function formatDateOnly(date) {
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+}
 
 function saveEntry() {
-  alert("Your journal entry has been saved!");
+  const entry = input.value.trim();
+  if (!entry) return;
+
+  const entries = JSON.parse(localStorage.getItem("entries") || "[]");
+  const today = formatDateOnly(new Date());
+
+  if (!entries.find(e => e.date === today)) {
+    entries.push({ date: today, content: entry });
+    localStorage.setItem("entries", JSON.stringify(entries));
+    localStorage.setItem("lastSavedDate", today);
+    updateStreak();
+    displayEntries();
+    input.value = "";
+  } else {
+    alert("You've already journaled today!");
+  }
 }
 
-function toggleChat() {
-  const chatBox = document.getElementById('chatBox');
-  chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
+function displayEntries() {
+  entriesContainer.innerHTML = "";
+
+  const entries = JSON.parse(localStorage.getItem("entries") || "[]");
+  entries.reverse().forEach(entry => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    div.innerHTML = `<strong>${entry.date}</strong><br>${entry.content}`;
+    entriesContainer.appendChild(div);
+  });
+
+  const lastSaved = localStorage.getItem("lastSavedDate");
+  if (lastSaved) {
+    const dateBox = document.createElement("div");
+    dateBox.className = "entry";
+    dateBox.innerHTML = `<strong>Last Saved Date:</strong> ${lastSaved}`;
+    entriesContainer.appendChild(dateBox);
+  }
 }
 
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const msg = input.value.trim();
-  if (!msg) return;
+function updateStreak() {
+  const entries = JSON.parse(localStorage.getItem("entries") || "[]");
+  const dates = entries.map(e => e.date).sort();
+  let streak = 0;
+  let today = new Date();
 
-  const messages = document.getElementById('chatMessages');
+  while (dates.includes(formatDateOnly(today))) {
+    streak++;
+    today.setDate(today.getDate() - 1);
+  }
 
-  const userDiv = document.createElement('div');
-  userDiv.textContent = msg;
-  userDiv.style.marginBottom = '5px';
-  messages.appendChild(userDiv);
-
-  const reply = document.createElement('div');
-  reply.className = 'blushy';
-  reply.textContent = getBlushyResponse(msg);
-  messages.appendChild(reply);
-
-  input.value = '';
-  messages.scrollTop = messages.scrollHeight;
+  streakDisplay.textContent = streak;
 }
 
-function getBlushyResponse(msg) {
-  const lower = msg.toLowerCase();
-  if (lower.includes("sad")) return "I'm here for you. Wanna talk about it? 🌸";
-  if (lower.includes("happy")) return "Yay! I love happy days 💖";
-  if (lower.includes("anxious")) return "Breathe in... Breathe out... You’ve got this. 💫";
-  return "I'm listening 💕";
-}
+window.onload = () => {
+  displayEntries();
+  updateStreak();
+};
