@@ -1,161 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BlushRoom Journal</title>
-  <style>
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    textarea {
-      width: 100%;
-      height: 200px;
-      padding: 15px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      resize: none;
-    }
-
-    .button-row, .affirmations {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-
-    button, select {
-      background: #f9c2d1;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover, select:hover {
-      background: #f7a6be;
-    }
-
-    .affirmation-card {
-      background: #fff0f5;
-      border: 1px dashed #f7a6be;
-      padding: 12px 20px;
-      border-radius: 14px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    /* AI Chat Bubble */
-    .chat-bubble {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background-color: #fbd0e3;
-      color: #333;
-      padding: 12px 18px;
-      border-radius: 20px 20px 20px 0;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      max-width: 200px;
-      font-size: 14px;
-    }
-
-    .chat-icon {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ffb6c1;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .bottom-row {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dear Diary</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="default-theme">
 
-  <div class="container">
-    <textarea placeholder="Write your heart out here..."></textarea>
+  <h1 class="page-heading">Dear Diary</h1>
 
-    <div class="button-row">
-      <button onclick="saveEntry()">Save Entry</button>
-
-      <select id="themePicker" onchange="changeTheme()">
-        <option value="">Choose Theme</option>
-        <option value="sunny">Sunny Day ☀️</option>
-        <option value="cloudy">Cloudy Calm ☁️</option>
-        <option value="blush">Blush Bloom 🌸</option>
-      </select>
-    </div>
-
-    <div class="button-row affirmations">
-      <div class="affirmation-card">You are loved 💗</div>
-      <div class="affirmation-card">Take deep breaths 🌺</div>
-      <div class="affirmation-card">You made it this far ✨</div>
-    </div>
-
-    <div class="bottom-row">
-      🌷 You are doing your best. You are enough. Everything will be okay. 🌷
-    </div>
+  <div class="theme-selector">
+    <label for="themeSelect">Choose Theme:</label>
+    <select id="themeSelect">
+      <option value="default-theme">Default</option>
+      <option value="soft-pink-theme">Soft Pink</option>
+      <option value="midnight-theme">Midnight</option>
+      <option value="sunny-theme">Sunny</option>
+      <option value="cloudy-blue-theme">Cloudy Blue</option>
+      <option value="minty-fresh-theme">Minty Fresh</option>
+    </select>
   </div>
 
-  <!-- AI Chat Bubble -->
-  <div class="chat-bubble" id="blushy">Hi, how are you doing? I'm Blushy 💬</div>
-  <div class="chat-icon" onclick="respondBlushy()">💬</div>
+  <textarea placeholder="Write your thoughts here..."></textarea>
+  <button onclick="saveEntry()">Save Entry</button>
 
-  <script>
-    function saveEntry() {
-      alert("Saved! 💾 (This is just a placeholder in demo)");
-    }
+  <div id="affirmations">
+    <p>🌸 You are enough.</p>
+    <p>🌼 Your feelings are valid.</p>
+    <p>🌈 One step at a time.</p>
+  </div>
 
-    function changeTheme() {
-      const theme = document.getElementById("themePicker").value;
-      switch (theme) {
-        case "sunny":
-          document.body.style.background = "linear-gradient(to bottom, #fff9e6, #fff2cc)";
-          break;
-        case "cloudy":
-          document.body.style.background = "linear-gradient(to bottom, #e0eafc, #cfdef3)";
-          break;
-        case "blush":
-          document.body.style.background = "linear-gradient(to bottom, #ffe6f0, #fff0f5)";
-          break;
-        default:
-          document.body.style.background = "";
-      }
-    }
+  <div class="chat-bubble" onclick="toggleChat()">💬</div>
+  <div class="chat-box" id="chatBox">
+    <div id="chatMessages">
+      <div class="blushy">Hi, how are you doing? I'm Blushy 💕</div>
+    </div>
+    <input type="text" id="userInput" placeholder="Say something..." onkeydown="if(event.key === 'Enter') sendMessage()"/>
+  </div>
 
-    function respondBlushy() {
-      const blushy = document.getElementById("blushy");
-      blushy.innerText = "You're not alone. I'm here 💗";
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
+
