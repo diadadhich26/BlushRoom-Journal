@@ -1,140 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BlushRoom Journal</title>
+  <title>Dear Diary</title>
   <link rel="stylesheet" href="style.css" />
-</head> 
-<body class="blush-theme">
+</head>
+<body>
+  <h1 class="header">Dear Diary</h1>
 
-  <div class="container">
-    <h1>Dear Diary 🩷</h1>
-    
-    <!-- Theme Toggle -->
-    <select id="themeToggle" onchange="changeTheme()">
-      <option value="blush-theme">Blush Bloom</option>
-      <option value="sunny-theme">Sunny Day</option>
-      <option value="cloudy-theme">Cloudy Calm</option>
+  <div class="theme-toggle">
+    <label for="themeSelect">Choose Theme:</label>
+    <select id="themeSelect">
+      <option value="default">Default</option>
+      <option value="soft-pink">Soft Pink</option>
+      <option value="sunny">Sunny</option>
+      <option value="midnight">Midnight</option>
+      <option value="blush-bloom">Blush Bloom</option>
     </select>
-
-    <!-- Journal Textarea -->
-    <textarea id="journal" rows="10" placeholder="How are you feeling today? Write your heart out..."></textarea>
-
-    <!-- Mood Dropdown -->
-    <select id="moodSelect">
-      <option value="">Mood?</option>
-      <option value="😊">Happy</option>
-      <option value="😔">Sad</option>
-      <option value="😤">Frustrated</option>
-      <option value="💖">Loved</option>
-    </select>
-
-    <!-- Save Button -->
-    <button onclick="saveJournal()">Save Entry</button>
-    <p id="saveMsg"></p>
-
-    <!-- Streak Counter -->
-    <p id="streakCounter">🔥 Streak: 0 days</p>
-
-    <!-- Chat Bubble -->
-    <div class="chat-bubble" onclick="toggleChat()">💬 Blushy</div>
-    <div id="chatWindow" style="display:none;">
-      <p>Blushy: I'm here for you! How are you feeling today?</p>
-      <input id="chatInput" placeholder="Talk to Blushy..." onkeydown="handleChat(event)" />
-      <div id="chatResponse"></div>
-    </div>
-
-    <!-- Journal History -->
-    <h3>🕰️ Past Entries</h3>
-    <div id="journalHistory"></div>
   </div>
 
+  <div class="date-display" id="dateDisplay"></div>
+
+  <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
+  <button onclick="saveEntry()">Save Entry</button>
+
+  <div class="streak-display" id="streakDisplay"></div>
+  <div id="savedEntriesContainer"></div>
+
   <script>
-    function saveJournal() {
-      const entry = document.getElementById("journal").value;
-      const today = new Date().toLocaleDateString();
-      localStorage.setItem(`entry-${today}`, entry);
-      localStorage.setItem("lastSavedDate", today);
-      document.getElementById("saveMsg").innerText = "✅ Saved!";
+    const themeSelect = document.getElementById("themeSelect");
+    const body = document.body;
+    const dateDisplay = document.getElementById("dateDisplay");
+
+    function updateDate() {
+      const now = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      dateDisplay.innerText = now.toLocaleDateString(undefined, options);
+    }
+
+    themeSelect.addEventListener("change", () => {
+      body.className = "";
+      const theme = themeSelect.value;
+      body.classList.add(`${theme}-theme`);
+    });
+
+    function saveEntry() {
+      const text = document.getElementById("journalEntry").value.trim();
+      if (!text) return;
+
+      const today = new Date().toDateString();
+      localStorage.setItem(today, text);
       updateStreak();
-      loadHistory();
+      showSavedEntries();
+      document.getElementById("journalEntry").value = "";
     }
 
     function updateStreak() {
-      const lastSaved = localStorage.getItem("lastSavedDate");
-      const today = new Date().toLocaleDateString();
-      let streak = localStorage.getItem("streak") || 0;
-
-      if (lastSaved !== today) {
-        streak++;
-        localStorage.setItem("streak", streak);
-      }
-
-      document.getElementById("streakCounter").innerText = `🔥 Streak: ${streak} days`;
-    }
-
-    function toggleChat() {
-      const chat = document.getElementById("chatWindow");
-      chat.style.display = chat.style.display === "none" ? "block" : "none";
-    }
-
-    function handleChat(event) {
-      if (event.key === "Enter") {
-        const input = document.getElementById("chatInput").value;
-        const responseBox = document.getElementById("chatResponse");
-        let response = "";
-
-        if (input.includes("sad") || input.includes("bad")) {
-          response = "I'm sending you a big virtual hug 🫂 You're not alone!";
-        } else if (input.includes("happy") || input.includes("good")) {
-          response = "Yay! I'm so glad to hear that 🩷";
+      let streak = 0;
+      let today = new Date();
+      for (let i = 0; i < 365; i++) {
+        const dateStr = today.toDateString();
+        if (localStorage.getItem(dateStr)) {
+          streak++;
+          today.setDate(today.getDate() - 1);
         } else {
-          response = "Thank you for sharing with me ✨";
-        }
-
-        responseBox.innerText = "Blushy: " + response;
-        document.getElementById("chatInput").value = "";
-      }
-    }
-
-    function changeTheme() {
-      const theme = document.getElementById("themeToggle").value;
-      document.body.className = theme;
-    }
-
-    function loadHistory() {
-      const historyContainer = document.getElementById("journalHistory");
-      historyContainer.innerHTML = "";
-      const entries = [];
-
-      for (let key in localStorage) {
-        if (key.startsWith("entry-")) {
-          const date = key.replace("entry-", "");
-          entries.push({ date, content: localStorage.getItem(key) });
+          break;
         }
       }
+      document.getElementById("streakDisplay").innerText = `Current Streak: ${streak} day(s)`;
+    }
 
-      entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      entries.forEach(entry => {
-        const card = document.createElement("div");
-        card.className = "entry-card";
-        card.innerHTML = `
-          <strong>${entry.date}</strong><br>
-          <p>${entry.content.replace(/\n/g, "<br>")}</p>
-          <hr>
-        `;
-        historyContainer.appendChild(card);
+    function showSavedEntries() {
+      const container = document.getElementById("savedEntriesContainer");
+      container.innerHTML = "<h3>Your Past Entries:</h3>";
+      const keys = Object.keys(localStorage).sort((a, b) => new Date(b) - new Date(a));
+      keys.forEach(key => {
+        const entry = localStorage.getItem(key);
+        container.innerHTML += `<div class="entry-box"><strong>${key}</strong><p>${entry}</p></div>`;
       });
     }
 
-    window.onload = function () {
-      changeTheme();
-      updateStreak();
-      loadHistory();
-    };
+    updateDate();
+    updateStreak();
+    showSavedEntries();
   </script>
 </body>
 </html>
