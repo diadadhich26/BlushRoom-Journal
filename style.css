@@ -1,3 +1,4 @@
+/* General Body Styling */
 body {
   font-family: 'Segoe UI', sans-serif;
   padding: 30px;
@@ -6,82 +7,93 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Heading */
+.page-heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #d46494;
+}
+
+/* Journal Container */
+.journal-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Textarea */
 textarea {
   width: 100%;
   height: 200px;
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 15px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
   resize: vertical;
+  background-color: #fff8fb;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* Save Button */
 button {
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 10px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #ffb6c1;
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-#themeToggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+button:hover {
+  background-color: #e39dac;
 }
 
-.theme-selector {
-  margin-top: 20px;
-}
-
+/* Streak Text */
 .streak-display {
   margin-top: 15px;
   font-weight: bold;
   color: #e74c3c;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background-color: #1e1e1e;
-  color: #f5f5f5;
-}
-
-body.dark-mode textarea {
-  background-color: #2e2e2e;
-  color: #fff;
-}
-
-/* Theme Styles */
-body.default-theme {
-  background-color: #fff;
+/* Blushy Chat Bubble */
+.blushy-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fdd7f5;
+  padding: 15px 20px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
   color: #333;
+  max-width: 230px;
+  z-index: 999;
+  border: 2px solid #fff0fa;
 }
 
-body.soft-pink-theme {
-  background-color: #ffe4ec;
-  color: #222;
-}
-
-body.midnight-theme {
-  background-color: #121212;
-  color: #f0f0f0;
-}
-
-body.sunny-theme {
-  background-color: #fff9e6;
+.blushy-bubble h4 {
+  margin: 0;
+  font-weight: 500;
   color: #444;
-}
-.journal-heading {
-  text-align: center;
-  font-family: 'Caveat', cursive;
-  font-size: 2.8rem;
-  color: #ff7eb3;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 2px #ffd6eb;
+  line-height: 1.4;
 }
 
+.blushy-name {
+  font-weight: 600;
+  color: #d84d97;
+}
+
+/* Affirmations */
+.affirmations {
+  text-align: center;
+  margin-top: 50px;
+  color: #ad4a7f;
+  font-size: 16px;
+  line-height: 1.6;
+}
