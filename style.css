@@ -1,99 +1,137 @@
-/* General Body Styling */
 body {
   font-family: 'Segoe UI', sans-serif;
   padding: 30px;
-  background-color: #fff0f5;
-  color: #333;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Heading */
+/* Soft BG Graphics */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .page-heading {
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 30px;
-  color: #d46494;
+  font-size: 2.5em;
+  color: #ff69b4;
+  margin-bottom: 20px;
 }
 
-/* Journal Container */
-.journal-container {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* Textarea */
 textarea {
   width: 100%;
   height: 200px;
-  padding: 15px;
-  border-radius: 10px;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
   resize: vertical;
-  background-color: #fff8fb;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Save Button */
 button {
-  margin-top: 15px;
+  margin-top: 10px;
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: #ffb6c1;
   color: white;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #e39dac;
+.theme-selector {
+  margin-top: 20px;
 }
 
-/* Streak Text */
-.streak-display {
-  margin-top: 15px;
-  font-weight: bold;
-  color: #e74c3c;
+#affirmations {
+  margin-top: 40px;
+  font-style: italic;
+  text-align: center;
+  color: #6a6a6a;
 }
 
-/* Blushy Chat Bubble */
-.blushy-bubble {
+.chat-bubble {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #fdd7f5;
-  padding: 15px 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
-  color: #333;
-  max-width: 230px;
+  background-color: #ffc0cb;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.chat-box {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 250px;
+  background-color: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 12px;
+  padding: 10px;
   z-index: 999;
-  border: 2px solid #fff0fa;
 }
 
-.blushy-bubble h4 {
-  margin: 0;
-  font-weight: 500;
+#chatMessages {
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+#userInput {
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.blushy {
+  background-color: #ffe4ec;
+  padding: 6px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+
+/* Themes */
+.default-theme {
+  background-color: #fff;
+  color: #333;
+}
+
+.soft-pink-theme {
+  background-color: #ffe4ec;
+  color: #222;
+}
+
+.midnight-theme {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+.sunny-theme {
+  background-color: #fff9e6;
   color: #444;
-  line-height: 1.4;
 }
 
-.blushy-name {
-  font-weight: 600;
-  color: #d84d97;
+.cloudy-blue-theme {
+  background-color: #e6f0ff;
+  color: #003366;
 }
 
-/* Affirmations */
-.affirmations {
-  text-align: center;
-  margin-top: 50px;
-  color: #ad4a7f;
-  font-size: 16px;
-  line-height: 1.6;
+.minty-fresh-theme {
+  background-color: #e0fff3;
+  color: #2e7d61;
 }
+
