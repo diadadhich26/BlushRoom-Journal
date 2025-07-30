@@ -3,87 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dear Diary</title>
+  <title>BlushRoom Journal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1 class="header">Dear Diary</h1>
+  <div class="background-animated"></div>
 
-  <div class="theme-toggle">
-    <label for="themeSelect">Choose Theme:</label>
+  <div class="journal-container">
+    <h1>🌸 BlushRoom Journal</h1>
+    
     <select id="themeSelect">
-      <option value="default">Default</option>
-      <option value="soft-pink">Soft Pink</option>
-      <option value="sunny">Sunny</option>
-      <option value="midnight">Midnight</option>
-      <option value="blush-bloom">Blush Bloom</option>
+      <option>Sunny Day</option>
+      <option>Cloudy Calm</option>
+      <option>Blush Bloom</option>
     </select>
+
+    <textarea id="journalInput" placeholder="Write your journal entry here..."></textarea>
+    <button onclick="saveEntry()">Save Entry</button>
+
+    <p class="streak-display">Current Streak: <span id="streakCount">0</span> day(s)</p>
+
+    <h2>Your Past Entries:</h2>
+    <div id="entriesContainer"></div>
+    
+    <div class="affirmations-box">
+      <h3>💌 Affirmations:</h3>
+      <ul id="affirmationsList">
+        <li>You are doing better than you think.</li>
+        <li>It’s okay to rest. You deserve peace.</li>
+        <li>Your emotions are valid and safe here.</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="date-display" id="dateDisplay"></div>
-
-  <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
-  <button onclick="saveEntry()">Save Entry</button>
-
-  <div class="streak-display" id="streakDisplay"></div>
-  <div id="savedEntriesContainer"></div>
-
-  <script>
-    const themeSelect = document.getElementById("themeSelect");
-    const body = document.body;
-    const dateDisplay = document.getElementById("dateDisplay");
-
-    function updateDate() {
-      const now = new Date();
-      const options = { year: "numeric", month: "long", day: "numeric" };
-      dateDisplay.innerText = now.toLocaleDateString(undefined, options);
-    }
-
-    themeSelect.addEventListener("change", () => {
-      body.className = "";
-      const theme = themeSelect.value;
-      body.classList.add(`${theme}-theme`);
-    });
-
-    function saveEntry() {
-      const text = document.getElementById("journalEntry").value.trim();
-      if (!text) return;
-
-      const today = new Date().toDateString();
-      localStorage.setItem(today, text);
-      updateStreak();
-      showSavedEntries();
-      document.getElementById("journalEntry").value = "";
-    }
-
-    function updateStreak() {
-      let streak = 0;
-      let today = new Date();
-      for (let i = 0; i < 365; i++) {
-        const dateStr = today.toDateString();
-        if (localStorage.getItem(dateStr)) {
-          streak++;
-          today.setDate(today.getDate() - 1);
-        } else {
-          break;
-        }
-      }
-      document.getElementById("streakDisplay").innerText = `Current Streak: ${streak} day(s)`;
-    }
-
-    function showSavedEntries() {
-      const container = document.getElementById("savedEntriesContainer");
-      container.innerHTML = "<h3>Your Past Entries:</h3>";
-      const keys = Object.keys(localStorage).sort((a, b) => new Date(b) - new Date(a));
-      keys.forEach(key => {
-        const entry = localStorage.getItem(key);
-        container.innerHTML += `<div class="entry-box"><strong>${key}</strong><p>${entry}</p></div>`;
-      });
-    }
-
-    updateDate();
-    updateStreak();
-    showSavedEntries();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
