@@ -1,137 +1,181 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  padding: 20px;
+  background-color: #fff0f5;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+/* Container */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fffdfd;
   padding: 30px;
-  transition: background-color 0.3s, color 0.3s;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
 }
 
-/* Soft BG Graphics */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.page-heading {
+/* Header */
+h1 {
   text-align: center;
-  font-size: 2.5em;
-  color: #ff69b4;
   margin-bottom: 20px;
+  font-size: 2em;
+  color: #d94d9b;
 }
 
+h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #b14685;
+}
+
+/* Journal Area */
 textarea {
   width: 100%;
-  height: 200px;
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  height: 180px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ffbdd4;
   resize: vertical;
+  font-size: 16px;
+  background-color: #fff6fa;
+  margin-bottom: 10px;
+  color: #4a4a4a;
 }
 
+/* Dropdowns */
+select {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ffcde3;
+  background-color: #fff0f5;
+  color: #333;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+/* Buttons */
 button {
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin-top: 12px;
+  padding: 10px 25px;
+  background-color: #ff85b3;
   border: none;
-  border-radius: 6px;
-  background-color: #ffb6c1;
   color: white;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff68a0;
+}
+
+/* Save Message */
+#saveMsg {
+  margin-top: 8px;
+  font-size: 14px;
+  color: green;
+}
+
+/* Streak Counter */
+#streakCounter {
+  margin-top: 15px;
   font-weight: bold;
+  color: #e267a7;
 }
 
-.theme-selector {
-  margin-top: 20px;
+/* Journal History */
+#journalHistory {
+  margin-top: 10px;
 }
 
-#affirmations {
-  margin-top: 40px;
-  font-style: italic;
-  text-align: center;
-  color: #6a6a6a;
+.entry-card {
+  background-color: #fff6fa;
+  padding: 14px;
+  border: 1px solid #ffc5dc;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #4a4a4a;
 }
 
+/* Chat Bubble */
 .chat-bubble {
+  background-color: #ffd1e6;
+  padding: 12px 16px;
+  border-radius: 15px;
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #ffc0cb;
-  border-radius: 50%;
-  padding: 10px;
-  font-size: 24px;
   cursor: pointer;
-  z-index: 1000;
+  box-shadow: 0 0 10px #ffaad5;
+  transition: transform 0.2s ease;
 }
 
-.chat-box {
-  display: none;
+.chat-bubble:hover {
+  transform: scale(1.05);
+}
+
+/* Chat Window */
+#chatWindow {
   position: fixed;
-  bottom: 80px;
+  bottom: 70px;
   right: 20px;
+  background-color: #fffafc;
+  border: 1px solid #ffcde3;
+  padding: 12px;
+  border-radius: 15px;
   width: 250px;
-  background-color: #fff0f5;
-  border: 2px solid #ffb6c1;
-  border-radius: 12px;
-  padding: 10px;
-  z-index: 999;
+  box-shadow: 0 0 10px #ffd1e6;
 }
 
-#chatMessages {
-  max-height: 150px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-#userInput {
+#chatInput {
   width: 100%;
-  margin-top: 5px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ffcde3;
+  font-size: 14px;
+  outline: none;
 }
 
-.blushy {
-  background-color: #ffe4ec;
-  padding: 6px;
-  margin-bottom: 5px;
-  border-radius: 6px;
+#chatResponse {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #d94d9b;
 }
 
 /* Themes */
-.default-theme {
-  background-color: #fff;
-  color: #333;
-}
-
-.soft-pink-theme {
-  background-color: #ffe4ec;
-  color: #222;
-}
-
-.midnight-theme {
-  background-color: #121212;
-  color: #f0f0f0;
+.blush-theme {
+  background-color: #fff0f5;
 }
 
 .sunny-theme {
-  background-color: #fff9e6;
-  color: #444;
+  background-color: #fffbe6;
 }
 
-.cloudy-blue-theme {
+.cloudy-theme {
   background-color: #e6f0ff;
-  color: #003366;
 }
 
-.minty-fresh-theme {
-  background-color: #e0fff3;
-  color: #2e7d61;
+.blush-theme .container {
+  background-color: #fffdfd;
 }
 
+.sunny-theme .container {
+  background-color: #fffefa;
+}
+
+.cloudy-theme .container {
+  background-color: #f5faff;
+}
