@@ -3,43 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dear Diary</title>
+  <title>BlushRoom Journal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="default-theme">
+<body class="blush-theme">
 
-  <h1 class="page-heading">Dear Diary</h1>
-
-  <div class="theme-selector">
-    <label for="themeSelect">Choose Theme:</label>
-    <select id="themeSelect">
-      <option value="default-theme">Default</option>
-      <option value="soft-pink-theme">Soft Pink</option>
-      <option value="midnight-theme">Midnight</option>
-      <option value="sunny-theme">Sunny</option>
-      <option value="cloudy-blue-theme">Cloudy Blue</option>
-      <option value="minty-fresh-theme">Minty Fresh</option>
+  <div class="container">
+    <h1>Dear Diary 🩷</h1>
+    
+    <!-- Theme Toggle -->
+    <select id="themeToggle" onchange="changeTheme()">
+      <option value="blush-theme">Blush Bloom</option>
+      <option value="sunny-theme">Sunny Day</option>
+      <option value="cloudy-theme">Cloudy Calm</option>
     </select>
-  </div>
 
-  <textarea placeholder="Write your thoughts here..."></textarea>
-  <button onclick="saveEntry()">Save Entry</button>
+    <!-- Journal Textarea -->
+    <textarea id="journal" rows="10" placeholder="How are you feeling today? Write your heart out..."></textarea>
 
-  <div id="affirmations">
-    <p>🌸 You are enough.</p>
-    <p>🌼 Your feelings are valid.</p>
-    <p>🌈 One step at a time.</p>
-  </div>
+    <!-- Mood Dropdown -->
+    <select id="moodSelect">
+      <option value="">Mood?</option>
+      <option value="😊">Happy</option>
+      <option value="😔">Sad</option>
+      <option value="😤">Frustrated</option>
+      <option value="💖">Loved</option>
+    </select>
 
-  <div class="chat-bubble" onclick="toggleChat()">💬</div>
-  <div class="chat-box" id="chatBox">
-    <div id="chatMessages">
-      <div class="blushy">Hi, how are you doing? I'm Blushy 💕</div>
+    <!-- Save Button -->
+    <button onclick="saveJournal()">Save Entry</button>
+    <p id="saveMsg"></p>
+
+    <!-- Streak Counter -->
+    <p id="streakCounter">🔥 Streak: 0 days</p>
+
+    <!-- Chat Bubble -->
+    <div class="chat-bubble" onclick="toggleChat()">💬 Blushy</div>
+    <div id="chatWindow" style="display:none;">
+      <p>Blushy: I'm here for you! How are you feeling today?</p>
+      <input id="chatInput" placeholder="Talk to Blushy..." onkeydown="handleChat(event)" />
+      <div id="chatResponse"></div>
     </div>
-    <input type="text" id="userInput" placeholder="Say something..." onkeydown="if(event.key === 'Enter') sendMessage()"/>
+
+    <!-- Journal History -->
+    <h3>🕰️ Past Entries</h3>
+    <div id="journalHistory"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function saveJournal() {
+      const entry = document.getElementById("journal").value;
+      const today = new Date().toLocaleDateString();
+      localStorage.setItem(`entry-${today}`, entry);
+      localStorage.setItem("lastSavedDate", today);
+      document.getElementById("saveMsg").innerText = "✅ Saved!";
+      updateStreak();
+      loadHistory();
+    }
+
+    function updateStreak() {
+      const lastSaved = localStorage.getItem("lastSavedDate");
+      const today = new Date().toLocaleDateString();
+      let streak = localStorage.getItem("streak") || 0;
+
+      if (lastSaved !== today) {
+        streak++;
+        localStorage.setItem("streak", streak);
+      }
+
+      document.getElementById("streakCounter").innerText = `🔥 Streak: ${streak} days`;
+    }
+
+    function toggleChat() {
+      const chat = document.getElementById("chatWindow");
+      chat.style.display = chat.style.display === "none" ? "block" : "none";
+    }
+
+    function handleChat(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById("chatInput").value;
+        const responseBox = document.getElementById("chatResponse");
+        let response = "";
+
+        if (input.includes("sad") || input.includes("bad")) {
+          response = "I'm sending you a big virtual hug 🫂 You're not alone!";
+        } else if (input.includes("happy") || input.includes("good")) {
+          response = "Yay! I'm so glad to hear that 🩷";
+        } else {
+          response = "Thank you for sharing with me ✨";
+        }
+
+        responseBox.innerText = "Blushy: " + response;
+        document.getElementById("chatInput").value = "";
+      }
+    }
+
+    function changeTheme() {
+      const theme = document.getElementById("themeToggle").value;
+      document.body.className = theme;
+    }
+
+    function loadHistory() {
+      const historyContainer = document.getElementById("journalHistory");
+      historyContainer.innerHTML = "";
+      const entries = [];
+
+      for (let key in localStorage) {
+        if (key.startsWith("entry-")) {
+          const date = key.replace("entry-", "");
+          entries.push({ date, content: localStorage.getItem(key) });
+        }
+      }
+
+      entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      entries.forEach(entry => {
+        const card = document.createElement("div");
+        card.className = "entry-card";
+        card.innerHTML = `
+          <strong>${entry.date}</strong><br>
+          <p>${entry.content.replace(/\n/g, "<br>")}</p>
+          <hr>
+        `;
+        historyContainer.appendChild(card);
+      });
+    }
+
+    window.onload = function () {
+      changeTheme();
+      updateStreak();
+      loadHistory();
+    };
+  </script>
 </body>
 </html>
-
