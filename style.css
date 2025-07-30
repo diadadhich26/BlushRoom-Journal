@@ -75,3 +75,13 @@ body.sunny-theme {
   background-color: #fff9e6;
   color: #444;
 }
+.journal-heading {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 2.8rem;
+  color: #ff7eb3;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #ffd6eb;
+}
+
