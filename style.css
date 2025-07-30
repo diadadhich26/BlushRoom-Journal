@@ -5,8 +5,7 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Comic Sans MS", cursive, sans-serif;
+body {font-family: 'Quicksand', sans-serif;
   padding: 20px;
   background-color: #fff0f5;
   color: #333;
